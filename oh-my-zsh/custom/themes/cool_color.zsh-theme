@@ -49,8 +49,16 @@ prompt_context() {
   local user=`whoami`
 
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
-    prompt_segment silver default "%(!.%{%F{yellow}%}.)$user@%m"
+    prompt_segment black default "$user@%m"
   fi
+}
+
+# Sudo: shows SUDO if it is on
+prompt_sudo () {
+	if [ $(sudo -n uptime 2>&1|grep "load"|wc -l) -gt 0 ]
+	then
+		prompt_segment red white " SUDO "
+	fi
 }
 
 # Git: branch/detached head, dirty status
@@ -100,6 +108,7 @@ build_prompt() {
   RETVAL=$?
   prompt_status
   prompt_context
+  prompt_sudo
   prompt_dir
   prompt_git
   prompt_end
