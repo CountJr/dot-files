@@ -48,7 +48,7 @@ prompt_end() {
 prompt_context() {
   local user=`whoami`
 
-  if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+  if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
     prompt_segment black default "%(!.%{%F{yellow}%}.)✝"
   fi
 }
@@ -71,7 +71,7 @@ prompt_git() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue black '%3~'
+  prompt_segment cyan black '%3~'
   # prompt_segment blue black "…${PWD: -30}"
 }
 
