@@ -49,7 +49,7 @@ prompt_context() {
   local user=`whoami`
 
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
-    prompt_segment lightpink default "%(!.%{%F{yellow}%}.)$user@%m"
+    prompt_segment silver default "%(!.%{%F{yellow}%}.)$user@%m"
   fi
 }
 
