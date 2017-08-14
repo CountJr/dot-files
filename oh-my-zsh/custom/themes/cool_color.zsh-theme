@@ -49,7 +49,7 @@ prompt_context() {
   local user=`whoami`
 
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$user@%m"
+    prompt_segment LightPink4 default "%(!.%{%F{yellow}%}.)$user@%m"
   fi
 }
 
@@ -57,12 +57,15 @@ prompt_context() {
 prompt_git() {
   local ref dirty
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
+    # number of files changes after last commit
     ZSH_THEME_GIT_PROMPT_DIRTY=' ±'
     if [ $(git status --short | wc -l) -gt 0 ]; then 
 			ZSH_THEME_GIT_PROMPT_DIRTY+="$(git status --short | wc -l | awk '{$1=$1};1') "
 		fi
     dirty=$(parse_git_dirty)
+    # branch name || part of hash
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
+    # part color
     if [[ -n $dirty ]]; then
       prompt_segment yellow black
     else
@@ -85,7 +88,7 @@ prompt_dir() {
 prompt_status() {
   local symbols
   symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
+  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘ %?"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
