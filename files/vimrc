@@ -6,7 +6,7 @@ if empty(glob("~/.vim/autoload/plug.vim"))
 endif
 
 "----include plugins----
-so ~/.plugins.vim
+so ~/.vimplugins
 
 
 syntax enable
@@ -21,7 +21,7 @@ let mapleader = ','
 set number				
 
 "-----visuals----
-colorscheme atom-dark
+" colorscheme atom-dark
 " color option for terminal
 " set t_CO=256
 
