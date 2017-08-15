@@ -1,0 +1,82 @@
+set nocompatible              " be iMproved, required
+
+"----check for plugget install ----
+if empty(glob("~/.vim/autoload/plug.vim"))
+    execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+endif
+
+"----include plugins----
+so ~/.plugins.vim
+
+
+syntax enable
+
+"make backspace behave like in other editor"
+set backspace=indent,eol,start		
+
+"the default is \, but comma is much better"
+let mapleader = ','                  	
+
+"let's activate line numbers"
+set number				
+
+"-----visuals----
+colorscheme atom-dark
+" color option for terminal
+" set t_CO=256
+
+"-----searching----
+set hlsearch				"highlight search results
+set incsearch				"highlight incremently search while typing
+
+
+
+
+"-----split management----
+set splitbelow
+set splitright
+
+nmap <C-J> <C-W><C-J>
+nmap <C-K> <C-W><C-K>
+nmap <C-H> <C-W><C-H>
+nmap <C-L> <C-W><C-L>
+
+
+
+"-----mapping-----"
+
+" opens .vimrc file to edit"
+nmap <Leader>ev :tabedit $MYVIMRC<cr>
+
+" add simple highlight removal
+nmap <Leader><space> :nohlsearch<cr>
+
+" easier nerdtree toggle
+nmap <Leader>1 :NERDTreeToggle<cr>
+
+" control-p
+nmap <c-R> :CtrlPBufTag<cr>
+nmap <Leader>e :CtrlPMRUFiles<cr>
+
+
+
+"-----plugins----
+
+" CtrlP
+
+let g:ctrlp_custom_ignore = 'node_modules\DS_Store\|git'
+
+" NerdTree
+
+let NERDTreeHijackNetrw = 0
+
+
+"-----auto-commands---"
+
+" automatically source the .vimrc file on save"
+augroup autosourcing
+	autocmd!
+	autocmd BufWritePost .vimrc source %
+augroup END
+
+
